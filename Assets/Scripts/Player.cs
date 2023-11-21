@@ -153,7 +153,9 @@ public class Player : MonoBehaviour
         }
         else if(_enabledSuperBuff == true)
         {
-            Instantiate(_superBuffShotPrefab, transform.position, Quaternion.identity);
+            Vector3 superBuffOffset = Quaternion.Euler(0, 0, transform.eulerAngles.z) * tripleShotOffset;
+
+            Instantiate(_superBuffShotPrefab, superBuffOffset, Quaternion.identity);
         }
 
         _audioSource.Play();
@@ -189,8 +191,8 @@ public class Player : MonoBehaviour
             _audioSource.clip = _playerDeathAudioClip;
             _audioSource.Play();
             _spawnManager.OnPlayerDeath();
-            Destroy(this.gameObject);
             _uiManager.EndGame();
+            Destroy(this.gameObject);
         }
     }
 
